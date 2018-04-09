@@ -52,7 +52,7 @@ class DataTablesComponent extends Component
      * @param $options: Query options
      * @param $columns: Column definitions
      */
-    private function _order(array &$options, array &$columns)
+    private function _order20180409(array &$options, array &$columns)
     {
         if (empty($this->request->query['order']))
             return;
@@ -86,6 +86,26 @@ class DataTablesComponent extends Component
         }
 
         /* remove default ordering in favor of our custom one */
+        unset($options['order']);
+    }
+    
+    private function _order(array &$options)
+    {
+        if (empty($this->request->query['order']))
+            return;
+
+        // -- add custom order
+        $order = $this->config('order');
+        foreach($this->request->query['order'] as $item) {
+            $order[$this->request->query['columns'][$item['column']]['name']] = $item['dir'];
+        }
+        if (!empty($options['delegateOrder'])) {
+            $options['customOrder'] = $order;
+        } else {
+            $this->config('order', $order);
+        }
+
+        // -- remove default ordering as we have a custom one
         unset($options['order']);
     }
 
