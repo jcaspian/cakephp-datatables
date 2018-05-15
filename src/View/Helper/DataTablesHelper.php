@@ -23,7 +23,7 @@ class DataTablesHelper extends Helper
     public function initialize(array $config)
     {
         /* set default i18n (not possible in _$defaultConfig due to use of __d() */
-        if (empty($this->config('language'))) {
+        if (empty($this->getConfig('language'))) {
             // defaults from datatables.net/reference/option/language
             $this->setConfig('language', [
                 'emptyTable' => __d('data_tables', 'No data available in table'),
