@@ -25,7 +25,7 @@ class DataTablesHelper extends Helper
         /* set default i18n (not possible in _$defaultConfig due to use of __d() */
         if (empty($this->config('language'))) {
             // defaults from datatables.net/reference/option/language
-            $this->config('language', [
+            $this->setConfig('language', [
                 'emptyTable' => __d('data_tables', 'No data available in table'),
                 'info' => __d('data_tables', 'Showing _START_ to _END_ of _TOTAL_ entries'),
                 'infoEmpty' => __d('data_tables', 'No entries to show'),
@@ -94,7 +94,7 @@ class DataTablesHelper extends Helper
     public function draw(string $selector, array $options = [])
     {
         // incorporate any defaults set earlier
-        $options += $this->config();
+        $options += $this->getConfig();
 
         // remove field names, which are an internal/server-side setting
         foreach ($options['columns'] ?? [] as $name => $column)
